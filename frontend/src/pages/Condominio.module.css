@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-body{
+.body{
     background: rgb(20,23,26);
     flex-direction: column;
 	display: flex;
-	align-items: center;
+	align-items: center; 
 }
+
 
 .bottle {
     height: 125px;
@@ -91,8 +92,8 @@ body{
     padding: 10px;
 	border-radius: 0 0 40px 40px;
 	color: white;
-	/* display: flex;
-	flex-direction: row; */
+	display: flex;
+	flex-direction: row;
 	margin: 12px;
 	overflow: hidden;
 	height: 95px;
@@ -212,6 +213,7 @@ body{
     box-shadow: 10px 5px 5px black;
     margin-top: 5vh;
     margin-bottom: 5vh;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 
 .field {
@@ -345,4 +347,4 @@ body{
 
 .strength {
     font-size: 0px;
-}
+} 

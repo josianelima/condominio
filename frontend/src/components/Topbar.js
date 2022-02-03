@@ -19,18 +19,7 @@ export default function Topbar() {
         <div className="topbarLinks">
           <span className="topbarLink">Homepage</span>
           <span className="topbarLink">Timeline</span>
-        </div>
-        <div className="topbarIcons">
-          <div className="topbarIconItem">
-            <span className="topbarIconBadge">1</span>
-          </div>
-          <div className="topbarIconItem">
-            <span className="topbarIconBadge">2</span>
-          </div>
-          <div className="topbarIconItem">
-            <span className="topbarIconBadge">1</span>
-          </div>
-        </div>
+      </div>
         <img src="/assets/person/1.jpeg" alt="" className="topbarImg"/>
       </div>
     </div>
