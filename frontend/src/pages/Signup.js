@@ -20,7 +20,7 @@ const [check, setCheck] = useState(false)
     function handleSubmit(e) {
         e.preventDefault()
         if (!emailError(submit.email) && !passError(submit.password) && !passConfirm(submit.password, submit.passwordConfirmation)) {
-            fetch('/signup', {
+            fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

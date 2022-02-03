@@ -1,14 +1,17 @@
 const { connectToMongo, createDocument, createSession, getCollection, findDocumentById, deleteDocumentById, updateDoc, findDocumentByEmail, findSessionByEmail, findSessionByToken, deleteSessionByEmail, addCondominio } = require("./db")
-const express = require('express')
+const { MongoClient, ObjectId } = require('mongodb')
+const express = require("express")
 const app = express()
-const port = 10000
-const authRoute = require('./routes/auth')
+const port = process.env.PORT ?? 3025
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+// const authRoute = require('./routes/auth')
 
 app.use(express.json())
 
 // app.use('/api/auth', authRoute)
 
-app.post('/api/auth/signup', (req, res)  => {
+app.post('/api/auth/signup', async (req, res)  => {
     if (validateEmail(req.body.email) && await emailAvaiable(req.body.email) && (checkPasswordStrength(req.body.password) === 4) && (req.body.password == req.body.passwordConfirmation)) {
         const user = req.body
         const passEncrypted = bcrypt.hashSync(req.body.password, saltRounds);
@@ -43,7 +46,7 @@ app.post('/api/auth/signup', (req, res)  => {
 
 })
 
-app.post("/api/auth/login", (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
     if (await emailAvaiable(req.body.email)) res.status(404).json({ message: "O email ou password estão incorretos" })
     else if (await validateLogin(req.body.email, req.body.password)) {
         await handleSessions(req.body.email)
