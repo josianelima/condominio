@@ -5,7 +5,7 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Lamasocial</span>
+        <span className="logoTopbar">Brand Name</span>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
@@ -17,10 +17,8 @@ export default function Topbar() {
       </div>
       <div className="topbarRight">
         <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
+          <span className="topbarLink">User Name</span>
       </div>
-        <img src="/assets/person/1.jpeg" alt="" className="topbarImg"/>
       </div>
     </div>
   );
