@@ -1,5 +1,6 @@
-// import Home from './pages/Home' llll
-import Login from './components/Login'
+import Home from './pages/Home' 
+import Login from './pages/Login'
+import SignupForm from './pages/Signup'
 import {
   BrowserRouter,
   Routes,
@@ -9,15 +10,17 @@ import {
 
 function App() {
   return (
-    <BrowserRouter>
-          <Routes>
-              <Route exact path="/" element={<Login />} />
-              {/* <Route path="" element={<Home />} />
-              <Route path="" element={<Home />} /> */}
-          </Routes>
-
-        </BrowserRouter>
+    <div>
+      <Routes >
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/home" element={<Home/>} />
+      </Routes>
+    </div>
   );
 }
+
+
+
 
 export default App;

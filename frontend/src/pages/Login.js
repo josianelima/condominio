@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Condominio.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
+
 export default function Login() {
     const [submit, setSubmit] = useState({
         email: "",
@@ -11,14 +12,14 @@ export default function Login() {
     const [showPass, setShowPass] = useState(false)
     const [render, setRender] = useState(false)
     const [notificacao, setNoti] = useState()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     function handleSubmit(e) {
         
         e.preventDefault()
         
         if (!emailError(submit.email) && !passError(submit.password)) {
-            fetch('/login', {
+            fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -26,16 +27,15 @@ export default function Login() {
                 body: JSON.stringify(submit)
             }).then(res => {
                 if (res.status == 201) {
-                    setNoti("Conta criada com sucesso!") 
                 }
                 return res.json()
             })
             .then(data => {
                 console.log(data)
                 localStorage.setItem("token", data.token)
-                // setTimeout(() => {
-                //         navigate("/profile")
-                //     }, 1000);  
+                setTimeout(() => {
+                        navigate("/home")
+                    }, 1000);  
             })
             .catch(error => console.log(error))
             
@@ -65,7 +65,7 @@ export default function Login() {
     }
 
     return (
-        <div>
+        <div className="body">
             
             <form className={styles.form} method="get" onSubmit={(e) => handleSubmit(e)}>
                 <div className={styles.main}>
@@ -82,8 +82,8 @@ export default function Login() {
                         {render ? passError(submit.password) : <div className={styles.error}>󠀡󠀡</div>}
                     </div>
                     <div>
-                        <button type="submit" className={styles.submit}>Login</button>
-                        {/* <div className={styles.sub}>Ainda não tem conta? <Link to="/signup" className={styles.nodecor}>Clique aqui</Link>!</div> */}
+                    <button type="submit" className={styles.submit}>Login</button>
+                        <div className={styles.sub}>Ainda não tem conta? <Link to="/signup" className={styles.nodecor}>Clique aqui</Link>!</div>
                     </div>
                 </div>
             </form>

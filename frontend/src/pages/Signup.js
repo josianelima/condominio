@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from './Condominio.module.css'
 import { Link, useNavigate } from "react-router-dom";
 
-export function SignupForm () {
+export default function SignupForm () {
 
     const [submit, setSubmit] = useState({
     email: '',
@@ -141,7 +141,7 @@ const [check, setCheck] = useState(false)
                     </div>
                     <div>
                         <button type="submit" className={styles.submit}>Registar</button>
-                        {/* <div className={styles.sub}>Já tem conta? <Link to="/login" className={styles.nodecor}>Clique aqui</Link>!</div> */}
+                        <div className={styles.sub}>Já tem conta? <Link to="/" className={styles.nodecor}>Clique aqui</Link>!</div>
                     </div>
                 </div>
             </form>
