@@ -1,6 +1,14 @@
-const router = express.Router()
+const { connectToMongo, createDocument, createSession, getCollection, findDocumentById, deleteDocumentById, updateDoc, findDocumentByEmail, findSessionByEmail, findSessionByToken, deleteSessionByEmail, addCondominio } = require("./db")
+const express = require('express')
+const app = express()
+const port = 10000
+const authRoute = require('./routes/auth')
 
-router.post('/signup', (req, res)  => {
+app.use(express.json())
+
+// app.use('/api/auth', authRoute)
+
+app.post('/api/auth/signup', (req, res)  => {
     if (validateEmail(req.body.email) && await emailAvaiable(req.body.email) && (checkPasswordStrength(req.body.password) === 4) && (req.body.password == req.body.passwordConfirmation)) {
         const user = req.body
         const passEncrypted = bcrypt.hashSync(req.body.password, saltRounds);
@@ -35,7 +43,7 @@ router.post('/signup', (req, res)  => {
 
 })
 
-router.post("/login", (req, res) => {
+app.post("/api/auth/login", (req, res) => {
     if (await emailAvaiable(req.body.email)) res.status(404).json({ message: "O email ou password estão incorretos" })
     else if (await validateLogin(req.body.email, req.body.password)) {
         await handleSessions(req.body.email)
@@ -119,3 +127,5 @@ async function handleSessions(email) {
         await deleteSessionByEmail(email)
     }
 }
+
+app.listen(port, () => console.log(`hey @ http://localhost:${port}`))
