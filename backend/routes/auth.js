@@ -50,3 +50,72 @@ router.post("/login", (req, res) => {
     else if (validatePassword(req.body.email, req.body.password)) res.status(401).json({ message: "O email ou password estão incorretos" })
 })
 
+
+
+
+
+
+async function Authorize(req, res, next) {
+    const checkToken = await findSessionByToken(req.headers.authorization)
+    if (!checkToken) res.status(403).json({ message: "Não existe nenhuma sessão com este token."})
+    req.user = await findDocumentById(checkToken._id)
+    next()
+}
+
+function formatDate(date) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function validateEmail(email) {
+    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return EMAIL_REGEX.test(email)
+}
+
+async function emailAvaiable(email) {
+    const check = await findDocumentByEmail(email)
+    return !check ? true : false
+}
+
+function checkPasswordStrength(password) {
+    if (password.length < 8) return 0;
+    const regexes = [
+        /[a-z]/,
+        /[A-Z]/,
+        /[0-9]/,
+        /[~!@#$%^&*)(+=._-]/
+    ]
+    return regexes
+        .map(re => re.test(password))
+        .reduce((score, t) => t ? score + 1 : score, 0)
+}
+
+async function validateLogin(email, password) {
+    const user = await findDocumentByEmail(email)
+    return bcrypt.compareSync(password, user.password);
+}
+
+async function validatePassword(email, password) {
+    const user = await findDocumentByEmail(email)
+    return user.email == email && user.password != password ? true : false
+}
+
+async function generateToken() {
+    return String(new ObjectId())
+}
+
+async function handleSessions(email) {
+    const existeSession = await findSessionByEmail(email)
+    if (existeSession) {
+        await deleteSessionByEmail(email)
+    }
+}
