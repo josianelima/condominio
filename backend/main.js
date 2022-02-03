@@ -9,4 +9,4 @@ app.use(express.json())
 app.use('/api/auth', authRoute)
 
 
-app.listen(port, () => console.log("hey"))
+app.listen(port, () => console.log(`hey @ http://localhost:${port}`))
