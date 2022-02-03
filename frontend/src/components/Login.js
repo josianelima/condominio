@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import styles from './Thirsty.module.css'
-import thirsty from "../Thirsty.png"
+import styles from './Condominio.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
-export function LoginForm() {
+export default function Login() {
     const [submit, setSubmit] = useState({
         email: "",
         password: ""
@@ -70,7 +69,7 @@ export function LoginForm() {
             
             <form className={styles.form} method="get" onSubmit={(e) => handleSubmit(e)}>
                 <div className={styles.main}>
-                    <img src={thirsty} className={styles.logo} alt="thirsty" />
+                    {/* <img src={thirsty} className={styles.logo} alt="thirsty" /> */}
                     <h1 className={styles.title}>Login</h1>
                     <div className={styles.field}>
                         <label className={styles.section}>Email</label><br></br>

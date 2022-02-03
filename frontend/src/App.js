@@ -1,5 +1,5 @@
-import Home from './ components/Home'
-import Login from './ components/Login'
+// import Home from './pages/Home'
+import Login from './components/Login'
 import {
   BrowserRouter,
   Routes,
@@ -9,13 +9,14 @@ import {
 
 function App() {
   return (
-    <div >
-      <main>
-        <Route path="/" element={login ? <Home /> : <Login />} />
-        <Route path="" element={<Home />} />
-        <Route path="" element={<Home />} />
-      </main>
-    </div>
+    <BrowserRouter>
+          <Routes>
+              <Route exact path="/" element={<Login />} />
+              {/* <Route path="" element={<Home />} />
+              <Route path="" element={<Home />} /> */}
+          </Routes>
+
+        </BrowserRouter>
   );
 }
 
